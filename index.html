@@ -1,24 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="background">
-    <button class="dan-button" onclick="start()" id="startButton">Почати гру</button>
-    <div id="game">
-        <div id="1">
-            <p>Введіть 4-значне число:</p>
-        </div>
-        <div id="2">Введіть код:
-            <input type="number" name="usercod" id="usercode" class="input" min="0123" max="9876"><br>
-            <input type="button" onclick="send()" value="Відправити" class="dan-button"><br>
-            <input type="button" onclick="restart()" value="Нова гра" class="dan-button">
-        </div>
-    </div>
-</div>
-<script src="js/game.js"></script>
+<div id="map"></div>
+<script>
+    const LOCATION = {lat: 49.233083, lng: 28.468217};
+    function initMap() {
+//        var myLocation = {lat: 49.233083, lng: 28.468217};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: LOCATION
+        });
+
+        var marker = new google.maps.Marker({
+            position: LOCATION,
+            map: map,
+            title: `${LOCATION.content}`
+        });
+    }
+
+    function getWeather(location) {
+        const API_KEY = 'a00f138fa513b9d272935f58a13ba472';
+        let url = `http://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${API_KEY}`;
+        return fetch (url)
+            .then((response) => response.json());
+    }
+
+
+    function createInfoWindow(contentString) {
+        let infoWindow = new google.maps.InfoWindow();
+        marker.addListener('click', (function(marker) {
+            return function() {
+                infoWindow.setContent(contentString);
+                infoWindow.open(map, marker);
+            }
+        })(marker));
+    }
+
+    getWeather(LOCATION)
+        .then((json) => {
+        const main = json.main;
+    const weather = json.weather[0];
+    const icon = `http://openweathermap.org/img/w/${weather.icon}.png`;
+    const contentString = `Температура: ${Math.round(main.temp - 273.15)}°C<br>
+                                 Швидкiсть вітру: ${json.wind.speed}м/с<br>
+                                   Вологість: ${main.humidity}%<br>`;
+    LOCATION.content = contentString;
+
+    window.onload = function()
+    {
+        var newdiv = document.getElementById("block");
+        newdiv.innerHTML  = "<h1>" + LOCATION.content + "</h1>";
+    }
+    });
+
+</script>
+<div id="block"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALit92KxhT9wWRDi9g5ltL9o1u5m620Tg&callback=initMap"
+        async defer></script>
 </body>
 </html>
