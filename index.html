@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="background">
+    <button class="dan-button" onclick="start()" id="startButton">Почати гру</button>
+    <div id="game">
+        <div id="1">
+            <p>Введіть 4-значне число:</p>
+        </div>
+        <div id="2">Введіть код:
+            <input type="number" name="usercod" id="usercode" class="input" min="0123" max="9876"><br>
+            <input type="button" onclick="send()" value="Відправити" class="dan-button"><br>
+            <input type="button" onclick="restart()" value="Нова гра" class="dan-button">
+        </div>
+    </div>
+</div>
+<script src="js/game.js"></script>
+</body>
+</html>
