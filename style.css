@@ -1,61 +1,11 @@
-body, html {
-    margin: 0;
-    padding: 0;
+#map {
+    position: relative;
+    height: 700px;
+    padding-left: 5%;
+    width: 90%;
 }
-div {
-    margin: auto;
-    padding: 10px;
-    text-align: center;
+#display{
+    font-size: 25px;
+    position: relative;
+    margin-bottom:80%;
 }
-
-.background {
-    background: url("image/bull.jpg") repeat;
-}
-
-.dan-button {
-    color: #fff;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 10px;
-    background: blue;
-    border: none;
-    margin: 10px 0 10px 0;
-}
-
-.dan-button:hover {
-    cursor: pointer;
-}
-
-.warning {
-    color: red;
-}
-
-.success {
-    color: green;
-}
-
-#game {
-    visibility: hidden;
-    background: black;
-    opacity: 0.8;
-    color: #fff;
-}
-
-.input {
-    height: 20px;
-    border: 3px solid blue;
-    background: black;
-    color: #fff;
-}
-
-
-.hidden {
-    display: none !important;
-}
-
-
-.invisible {
-    visibility: hidden;
-}
-
-
